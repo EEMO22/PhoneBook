@@ -1,6 +1,8 @@
 package com.java.phone;
 
 public class Phone {
+	
+	protected int num;
 	protected String name;
 	protected String hp;
 	protected String tel;
@@ -34,7 +36,16 @@ public class Phone {
 	public void setTel(String tel) {
 		this.tel = tel;
 	}
+
+	public void showInfo() {
+		System.out.printf("%d. %s\t%s\t%s%n", num, name, hp, tel);
+	}
 	
-	
+	@Override
+	public String toString() {
+		String result = String.format("d. %s %s %t %s", num, name, hp, tel);
+		return result;
+	}
 
 }
+
