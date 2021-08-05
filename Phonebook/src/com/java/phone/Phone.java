@@ -2,7 +2,7 @@ package com.java.phone;
 
 public class Phone {
 	
-	protected int num;
+//	protected int num;
 	protected String name;
 	protected String hp;
 	protected String tel;
@@ -38,12 +38,12 @@ public class Phone {
 	}
 
 	public void showInfo() {
-		System.out.printf("%d. %s\t%s\t%s%n", num, name, hp, tel);
+		System.out.printf("%s\t%s\t%s%n", name, hp, tel);
 	}
 	
 	@Override
 	public String toString() {
-		String result = String.format("d. %s %s %t %s", num, name, hp, tel);
+		String result = String.format("%s %s \t %s", name, hp, tel);
 		return result;
 	}
 
