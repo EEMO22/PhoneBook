@@ -1,4 +1,4 @@
-package com.java.phone;
+package phonebook;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class PhoneApp {
-	static final String rootPath = System.getProperty("user.dir") + "\\PhoneBook\\PhoneBook\\";
+	static final String rootPath = System.getProperty("user.dir") + "\\PhoneBook\\";
 	static String source = rootPath + "PhoneData.txt";
 	public static void main(String[] args) throws IOException {
 
@@ -33,12 +33,13 @@ public class PhoneApp {
 			System.out.println("*           전화번호 관리 프로그램                *");
 			System.out.println("*********************************************");
 			
+			Scanner sc = new Scanner(System.in);
 			boolean run = true;
 			int code = 0;
 			String word = "";
 			
 			while(run) {
-				Scanner sc = new Scanner(System.in);
+				
 				BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 				System.out.println("1.리스트 2.등록 3.삭제 4.검색 5.종료");
 				System.out.println("---------------------------------------------");
@@ -100,9 +101,10 @@ public class PhoneApp {
 					System.out.println("[다시 입력해 주세요.]");
 					System.out.println();
 				}
-				sc.close();
-			}
+			
+			} sc.close();
 		}
+		
 		
 		//	검색
 		private static void search(List<Phone> lst, String str) {

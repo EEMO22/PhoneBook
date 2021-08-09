@@ -1,4 +1,4 @@
-package com.java.phone;
+package phonebook;
 
 public class Phone {
 	
