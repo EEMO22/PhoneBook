@@ -22,9 +22,9 @@ public class PhoneApp {
 		List<Phone> lst = new ArrayList<>();
 		FileRead(lst);
 		run(lst);
-		
+	
 	}
-		
+	
 		
     //	실행부
 		private static void run(List<Phone> lst) {
@@ -235,7 +235,3 @@ public class PhoneApp {
 		}
 	
 	}
-
-
-		
-
