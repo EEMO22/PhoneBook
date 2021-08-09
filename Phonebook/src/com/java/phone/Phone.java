@@ -2,7 +2,6 @@ package com.java.phone;
 
 public class Phone {
 	
-//	protected int num;
 	protected String name;
 	protected String hp;
 	protected String tel;

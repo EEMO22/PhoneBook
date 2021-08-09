@@ -6,15 +6,15 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Scanner;
 
 public class PhoneApp {
-	static final String rootPath = System.getProperty("user.dir") + "\\PhoneBook\\";
+	static final String rootPath = System.getProperty("user.dir") + "\\PhoneBook\\PhoneBook\\";
 	static String source = rootPath + "PhoneData.txt";
 	public static void main(String[] args) throws IOException {
 
@@ -38,6 +38,7 @@ public class PhoneApp {
 			String word = "";
 			
 			while(run) {
+				Scanner sc = new Scanner(System.in);
 				BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 				System.out.println("1.리스트 2.등록 3.삭제 4.검색 5.종료");
 				System.out.println("---------------------------------------------");
@@ -69,7 +70,7 @@ public class PhoneApp {
 					System.out.println();
 					System.out.println("<3.삭제>");
 					System.out.println(">번호: ");
-					del(br, lst);
+					del(sc, lst);
 					break;
 					
 					
@@ -99,31 +100,21 @@ public class PhoneApp {
 					System.out.println("[다시 입력해 주세요.]");
 					System.out.println();
 				}
+				sc.close();
 			}
 		}
 		
 		//	검색
 		private static void search(List<Phone> lst, String str) {
-			BufferedReader br = 
-					new BufferedReader(new InputStreamReader(System.in));
 			
-			String Info = "";
-			try {
-				while((str = br.readLine()) != null) {	
-					if (Info.contains(str)) {
-						System.out.println(Info);
-					}
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			} finally {
-				try {
-					br.close();
-				} catch (Exception e) {
-					e.printStackTrace();
+			for (int i = 0; i < lst.size(); i++) {
+				Phone sch = lst.get(i);
+				if (sch.getName().contains(str)) {
+					System.out.println(sch.toString());
 				}
 			}
 		}
+
 		
 		//	리스트에 추가
 		private static void add(BufferedReader br, List<Phone> lst) {
@@ -140,6 +131,7 @@ public class PhoneApp {
 				tel = br.readLine();
 				lst.add(new Phone(name, hp, tel));
 				System.out.println();
+				FileWrite(lst);
 				System.out.println("[등록되었습니다.]");
 				
 			} catch (IOException e) {
@@ -148,30 +140,38 @@ public class PhoneApp {
 		}
 		
 		//	리스트에서 삭제
-		private static void del(BufferedReader br, List<Phone> lst) {
-			int d = 0;
-			try {
-				d = br.read();
-			} catch (IOException e) {
-				e.printStackTrace();
-			} finally {
-				try {
-					br.close();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-			lst.remove(d - 1);
-//			update(lst);
+		private static void del(Scanner sc, List<Phone> lst) {
+			
+			
+			int del = sc.nextInt();
+			lst.remove(del - 1);
+			
 			System.out.println();
-			FileWirte(lst);
+			FileWrite(lst);
 			System.out.println("[삭제되었습니다.]");
+			
+//			BufferedReader로는 OutOfBoundException 발생!
+			
+//			try {
+//				int d = br.read();
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			} finally {
+//				try {
+//					br.close();
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//			lst.remove(d - 1);
+//			System.out.println();
+//			FileWrite(lst);
+//			System.out.println("[삭제되었습니다.]");
 		}
 		
 		//	리스트 출력
 		private static void showInfo(List<Phone> lst) {
-//			for (int i = 0; i < lst.size(); i++) {
-//				System.out.println(lst.get(i).toString());
+
 			int i = 1;
 			Iterator<Phone> iter = lst.iterator();
 			while(iter.hasNext()) {
@@ -181,15 +181,7 @@ public class PhoneApp {
 				i++;
 			}
 		}
-		
-		// 넘버링
-//		private static void update(List<Phone> lst) {
-//			for (int i = 0; i < lst.size(); i++) {
-//				Phone n = (Phone) lst.get(i);
-//				n.setNum(i + 1);
-//			}
-//		}
-//		
+
 		//	파일 입출력
 		private static void FileRead(List<Phone> lst) {
 			Reader fr = null;
@@ -213,11 +205,10 @@ public class PhoneApp {
 					e.printStackTrace();
 				}
 			}
-//			update(lst);
 			return;
 		}
 		
-		private static void FileWirte(List<Phone> lst) {
+		private static void FileWrite(List<Phone> lst) {
 			Writer fw = null;
 			BufferedWriter bw = null;
 			try {
@@ -225,13 +216,13 @@ public class PhoneApp {
 				bw = new BufferedWriter(fw);
 				
 				for(int i = 0; i < lst.size(); i++) {
-					Phone wrPhone = lst.get(i);
+					Phone wrPhone = (Phone)lst.get(i);
 					bw.write(wrPhone.getName() + ",");
 					bw.write(wrPhone.getHp() + ",");
 					bw.write(wrPhone.getTel());
 					bw.write("\r\n");
 				}
-			} catch (Exception e) {
+			} catch (IOException e) {
 				e.printStackTrace();
 			} finally {
 				try {
@@ -242,13 +233,9 @@ public class PhoneApp {
 				}
 			}
 		}
-		
-//		private static void update(List<Phone> lst) {
-//				
-//		}
-
 	
 	}
+
 
 		
 
